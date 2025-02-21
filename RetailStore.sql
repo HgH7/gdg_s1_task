@@ -61,3 +61,27 @@ select Firstname, ProductName, Category, Price, OrderID
 from Product
 inner join Orders on Product.ProductID = Orders.ProductID
 inner join Customers on Orders.CustomerID = Customers.CustomerID;
+
+
+
+SELECT Customers.CustomerID, Customers.Firstname, Customers.Lastname, 
+       SUM(Product.Price * Orders.Quantity) AS TotalAmountSpent
+FROM Orders
+JOIN Customers ON Orders.CustomerID = Customers.CustomerID
+JOIN Product ON Orders.ProductID = Product.ProductID
+GROUP BY Customers.CustomerID, Customers.Firstname, Customers.Lastname;
+
+
+
+SELECT Customers.CustomerID, Customers.Firstname, Customers.Lastname, 
+       COUNT(Orders.OrderID) AS NumberOfOrders
+FROM Orders
+JOIN Customers ON Orders.CustomerID = Customers.CustomerID
+GROUP BY Customers.CustomerID, Customers.Firstname, Customers.Lastname;
+
+
+SELECT Product.ProductID, Product.ProductName, 
+       SUM(Product.Price * Orders.Quantity) AS TotalSales
+FROM Orders
+JOIN Product ON Orders.ProductID = Product.ProductID
+GROUP BY Product.ProductID, Product.ProductName;
